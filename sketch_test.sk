@@ -1,0 +1,30 @@
+generator void rep(int n, fun f){
+    if(n>0){
+        f();
+        rep(n-1, f);
+    }
+}
+
+bit[32] reverseSketch(bit[32] in) {
+    bit[32]  t = in;
+    int s = 1;
+    generator void tmp(){
+        bit[32] m = ??;
+        t = ((t << s) & m )| ((t >> s) & (~m));
+        s = s*??;
+        }
+    rep(??, tmp);
+    return t;
+}
+
+bit[32] reverseReference(bit[32] in) {
+    bit[32] retVal;
+    for(int i=0; i<32; i++){
+        retVal[i] = in[31-i];
+    }
+    return retVal;
+}
+
+harness void main(bit[32] in) {
+    assert reverseSketch(in) == reverseReference(in);
+}
